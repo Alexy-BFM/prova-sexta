@@ -11,7 +11,7 @@ var app = builder.Build();
 app.MapGet("/", () => "Prova A1");
 
 //ENDPOINTS DE CATEGORIA
-//GET: http://localhost:5273/categoria/listar
+//GET: http://localhost:5000/categoria/listar
 app.MapGet("/categoria/listar", ([FromServices] AppDataContext ctx) =>
 {
     if (ctx.Categorias.Any())
@@ -21,7 +21,7 @@ app.MapGet("/categoria/listar", ([FromServices] AppDataContext ctx) =>
     return Results.NotFound("Nenhuma categoria encontrada");
 });
 
-//POST: http://localhost:5273/categoria/cadastrar
+//POST: http://localhost:5000/categoria/cadastrar
 app.MapPost("/categoria/cadastrar", ([FromServices] AppDataContext ctx, [FromBody] Categoria categoria) =>
 {
     ctx.Categorias.Add(categoria);
@@ -30,7 +30,7 @@ app.MapPost("/categoria/cadastrar", ([FromServices] AppDataContext ctx, [FromBod
 });
 
 //ENDPOINTS DE TAREFA
-//GET: http://localhost:5273/tarefas/listar
+//GET: http://localhost:5000/tarefas/listar
 app.MapGet("/tarefas/listar", ([FromServices] AppDataContext ctx) =>
 {
     if (ctx.Tarefas.Any())
@@ -40,7 +40,7 @@ app.MapGet("/tarefas/listar", ([FromServices] AppDataContext ctx) =>
     return Results.NotFound("Nenhuma tarefa encontrada");
 });
 
-//POST: http://localhost:5273/tarefas/cadastrar
+//POST: http://localhost:5000/tarefas/cadastrar
 app.MapPost("/tarefas/cadastrar", ([FromServices] AppDataContext ctx, [FromBody] Tarefa tarefa) =>
 {
     Categoria? categoria = ctx.Categorias.Find(tarefa.CategoriaId);
@@ -54,7 +54,7 @@ app.MapPost("/tarefas/cadastrar", ([FromServices] AppDataContext ctx, [FromBody]
     return Results.Created("", tarefa);
 });
 
-//PUT: http://localhost:5273/tarefas/alterar/{id}
+//PUT: http://localhost:5000/tarefas/alterar/{id}
 app.MapPut("/tarefas/alterar/{id}", ([FromRoute] string id,
     [FromBody] Tarefa tarefaAlterado,
     [FromServices] AppDataContext ctx) =>
@@ -72,13 +72,13 @@ app.MapPut("/tarefas/alterar/{id}", ([FromRoute] string id,
 });
 app.Run();
 
-//GET: http://localhost:5273/tarefas/naoconcluidas
+//GET: http://localhost:5000/tarefas/naoconcluidas
 app.MapGet("/tarefas/naoconcluidas", ([FromServices] AppDataContext ctx) =>
 {
     //Implementar a listagem de tarefas não concluídas
 });
 
-//GET: http://localhost:5273/tarefas/concluidas
+//GET: http://localhost:5000/tarefas/concluidas
 app.MapGet("/tarefas/concluidas", ([FromServices] AppDataContext ctx) =>
 {
     //Implementar a listagem de tarefas concluídas
